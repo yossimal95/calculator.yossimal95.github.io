@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <table>
+      <tr>
+        <td class="tdInput" colspan="4">
+          <div id="small"></div>
+          <input type="text" id="myInput" oninput="check()" value="0" />
+        </td>
+      </tr>
+      <tr>
+        <td onclick="myFunction(9)">9</td>
+        <td onclick="myFunction(8)">8</td>
+        <td onclick="myFunction(7)">7</td>
+        <td onclick="myFunction(6)">6</td>
+      </tr>
+      <tr>
+        <td onclick="myFunction(5)">5</td>
+        <td onclick="myFunction(4)">4</td>
+        <td onclick="myFunction(3)">3</td>
+        <td onclick="myFunction(2)">2</td>
+      </tr>
+      <tr>
+        <td onclick="myFunction(1)">1</td>
+        <td onclick="myFunction(0)">0</td>
+        <td onclick="calculations('+')">+</td>
+        <td onclick="calculations('-')">-</td>
+      </tr>
+      <tr>
+        <td onclick="calculations('*')">*</td>
+        <td onclick="calculations('/')">/</td>
+        <td onclick="shave()">=</td>
+        <td onclick="claer()">C</td>
+      </tr>
+    </table>
+
+    <script>
+      //check the user typing
+      function check() {
+        //delete the 0 in the myInput
+        if (document.getElementById("myInput").value[0] == "0") {
+          document.getElementById("myInput").value = document
+            .getElementById("myInput")
+            .value.substring(1);
+        }
+        if (isNaN(document.getElementById("myInput").value)) {
+          alert("nums ONLY!");
+          claer();
+        }
+        if (document.getElementById("myInput").value.length > 5) {
+          alert("only 5 numbers..");
+          document.getElementById("myInput").value = document
+            .getElementById("myInput")
+            .value.slice(0, 5);
+        }
+      }
+      //function that put the number in the myInput
+      function myFunction(x) {
+        //set background-color to tdInput
+        document.getElementsByClassName("tdInput")[0].style.backgroundColor =
+          "rgba(255, 255, 255, 0.5)";
+        //check that the myInput length is < 5
+        if (document.getElementById("myInput").value.length < 5) {
+          //check if myInput contain only 0 or not
+          if (document.getElementById("myInput").value == "0") {
+            document.getElementById("myInput").value = x;
+          } else {
+            document.getElementById("myInput").value += x;
+          }
+        } else {
+          alert("only 5 numbers..");
+        }
+      }
+      //function that clean the  main input
+      function claer() {
+        document.getElementById("myInput").value = 0;
+        document.getElementsByClassName("tdInput")[0].style.backgroundColor =
+          "rgba(255, 255, 255, 0)";
+        document.getElementById("small").innerText = "";
+      }
+
+      //function for the calculations
+      function calculations(o) {
+        op = o;
+        num1 = document.getElementById("myInput").value;
+        claer();
+        document.getElementById("myInput").focus();
+        document.getElementById("small").innerText = num1 + op;
+      }
+
+      //THE output
+      function shave() {
+        num2 = document.getElementById("myInput").value;
+        document.getElementById("small").innerText += num2 + "=";
+        switch (op) {
+          case "+":
+            document.getElementById("myInput").value =
+              parseFloat(num1) + parseFloat(num2);
+            break;
+          case "-":
+            document.getElementById("myInput").value =
+              parseFloat(num1) - parseFloat(num2);
+            break;
+          case "*":
+            document.getElementById("myInput").value =
+              parseFloat(num1) * parseFloat(num2);
+            break;
+          case "/":
+            document.getElementById("myInput").value =
+              parseFloat(num1) / parseFloat(num2);
+            break;
+          default:
+            alert("somthing is wrong..");
+            break;
+        }
+
+        //alert(op);
+      }
+    </script>
+  </body>
+</html>
